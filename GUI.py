@@ -9,14 +9,14 @@ import os
 
 class textbox(Frame):
     def __init__(self, parent, orientation, message,
-                 image, bg_color='white'):
+                                  bg_color='white'):
         Frame.__init__(self, parent)
         self.orientation = orientation
         self.bg_color = bg_color
         self.wraplength = 500
         self.set_style()
-        self.get_image()
-        self.set_image()
+        #self.get_image()
+        #self.set_image()
         self.row = 0
         self.font_size = 8
         self.message = message
@@ -43,18 +43,18 @@ class textbox(Frame):
         except:
             messagebox.showinfo("Info", "Time not working")
 
-        self.image_label.pack(fill=BOTH)
+        #self.image_label.pack(fill=BOTH)
         self.message_label.pack(fill=X)
         self.time_label.pack(fill=X, side=BOTTOM)
 
-    def get_image(self):
-        self.background_image = image_url = 'chatbubble2.png'
-        self.original_image = Image.open(os.path.join("images",
-                                                      image_url))
+    #def get_image(self):
+    #    self.background_image = image_url = 'chatbubble2.png'
+    #    self.original_image = Image.open(os.path.join("images",
+#                                                      image_url))
         
-    def size_image(self, size):
-        resized = self.original_image.resize(size, Image.ANTIALIAS)
-        self.background_image = ImageTk.PhotoImage(resized)
+    #def size_image(self, size):
+    #    resized = self.original_image.resize(size, Image.ANTIALIAS)
+    #    self.background_image = ImageTk.PhotoImage(resized)
         
     
     def set_style(self):
@@ -63,17 +63,17 @@ class textbox(Frame):
                                    background=self.bg_color)
         self.style = 'Canvas.TFrame'
 
-    def set_image(self, image):
-        if image == 1:
-            image_url = 'chatbubble1.png'
+    #def set_image(self, image):
+    #    if image == 1:
+    #        image_url = 'chatbubble1.png'
 
-        elif image == 2:
-            image_url = 'chatbubble2.png'
+     #   elif image == 2:
+      #      image_url = 'chatbubble2.png'
 
         
-        self._image = PhotoImage(file=os.path.join("images", image_url))
-        self.image_label = Label(self,
-                                 image = self._image)
+    #    self._image = PhotoImage(file=os.path.join("images", image_url))
+     #   self.image_label = Label(self,
+     #                            image = self._image)
         
 
                                     
@@ -297,7 +297,7 @@ class GUI():
         
         return space_frame
             
-    def place_textbox(self, message, image, color='white'):
+    def place_textbox(self, message, color='white'):
         message_frame = Frame(self.main_canvas_frame)
         space_frame = self.get_spacer(message_frame)
         space_frame.pack_propagate(0)
@@ -307,7 +307,6 @@ class GUI():
             new_textbox = textbox(message_frame,
                                   'right',
                                   message,
-                                  image,
                                   color)
         
         except:
@@ -337,7 +336,7 @@ class GUI():
         
     def send_message(self):
         if not self.empty_text():
-            self.place_textbox(self.get_entry_text(), 1)
+            self.place_textbox(self.get_entry_text())
             try:
                 self.controller.send_message(self.get_entry_text())
             except:
